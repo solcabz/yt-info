@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+h1{
+    text-align: center;
+}
+
+#videoInfoForm{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+input{
+    height: 33px;
+    width: 350px;
+    border-radius: 5px;
+}
+button{
+    background-color: #2b2b2b;
+    color: #ffffff;
+    padding: 8px 25px;
+    border-radius: 5px;
+    border: none;
+}
+
+#videoInfoContainer{
+    padding: 10px 25px;
+}

@@ -5,18 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube Video Information</title>
 </head>
+<link rel="stylesheet" href="/css/index.css">
 <body>
 
   <h1>YouTube Video Information</h1>
 
   <form id="videoInfoForm">
-    <label for="videoUrl">Enter YouTube Video URL:</label>
-    <input type="text" id="videoUrl" name="videoUrl" required>
+    <div>
+      <label for="videoUrl">YouTube Video URL:</label>
+      <input type="text" id="videoUrl" name="videoUrl" required>
+    </div>
     <button type="button" onclick="getVideoInfo()">Get Video Info</button>
   </form>
 
   <div id="videoInfoContainer">
-    <!-- Video information will be displayed here -->
+    <!-- Video information will be displayed here --> 
   </div>
 
   <script>

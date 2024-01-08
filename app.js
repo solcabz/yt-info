@@ -3,6 +3,8 @@ const ytdl = require('ytdl-core');
 
 const app = express();
 
+app.use(express.static('public'))
+
 app.get('/', async (req, res) => {
   res.sendFile('index.html', { root: './' });
 });
@@ -16,6 +18,7 @@ app.get('/videoInfo', async (req, res) => {
 
   try {
     const info = await ytdl.getInfo(videoUrl);
+    console.log('Video Info:', info); // Log the entire 'info' object to the console
 
     const title = info.videoDetails.title;
 
@@ -30,11 +33,11 @@ app.get('/videoInfo', async (req, res) => {
     const seconds = durationSeconds % 60;
     const duration = `${minutes}:${seconds}`;
 
-    const likes = info.videoDetails && info.videoDetails.likes;
+    const likes = info.videoDetails && info.videoDetails.likes ? parseInt(info.videoDetails.likes) : 0;
     const dislikes = info.videoDetails && info.videoDetails.dislikes ? parseInt(info.videoDetails.dislikes) : 0;
 
     const separateVideoCounter = info.videoDetails.isLiveContent ? 'Live Stream' : 'Single Video';
-
+    
     const videoInfo = {
       title,
       uploadDate: formattedUploadDate,
@@ -52,7 +55,7 @@ app.get('/videoInfo', async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
