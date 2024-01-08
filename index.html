@@ -2,45 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>YouTube Video Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Video Information</title>
 </head>
 <body>
+
   <h1>YouTube Video Information</h1>
-  <form id="videoForm">
-    <label for="videoUrl">Enter YouTube Video URL:</label><br>
-    <input type="text" id="videoUrl" name="videoUrl"><br><br>
-    <button type="submit">Get Video Info</button>
+
+  <form id="videoInfoForm">
+    <label for="videoUrl">Enter YouTube Video URL:</label>
+    <input type="text" id="videoUrl" name="videoUrl" required>
+    <button type="button" onclick="getVideoInfo()">Get Video Info</button>
   </form>
 
-  <div id="videoInfoDisplay">
-    <!-- Video info will be displayed here -->
+  <div id="videoInfoContainer">
+    <!-- Video information will be displayed here -->
   </div>
 
   <script>
-    document.getElementById('videoForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
+    async function getVideoInfo() {
       const videoUrl = document.getElementById('videoUrl').value;
-      
-      try {
-        const response = await fetch(`/videoInfo?videoUrl=${encodeURIComponent(videoUrl)}`);
-        const data = await response.json();
-        
-        const videoInfoDisplay = document.getElementById('videoInfoDisplay');
-        videoInfoDisplay.innerHTML = `
-          <h2>${data.title}</h2>
-          <p><strong>Upload Date:</strong> ${data.uploadDate}</p>
-          <p><strong>Views:</strong> ${data.views}</p>
-          <p><strong>Duration:</strong> ${data.duration} minutes</p>
-          <p><strong>Likes:</strong> ${data.likes}</p>
-          <p><strong>Dislikes:</strong> ${data.dislikes}</p>
-          <p><strong>Type:</strong> ${data.separateVideoCounter}</p>
-        `;
-      } catch (error) {
-        console.error('Error fetching video info:', error);
-        const videoInfoDisplay = document.getElementById('videoInfoDisplay');
-        videoInfoDisplay.innerHTML = `<p>Error fetching video information.</p>`;
-      }
-    });
+      const response = await fetch(`/videoInfo?videoUrl=${encodeURIComponent(videoUrl)}`);
+      const videoInfo = await response.json();
+
+      const videoInfoContainer = document.getElementById('videoInfoContainer');
+      videoInfoContainer.innerHTML = `
+        <h2>Video Information</h2>
+        <p><strong>Title:</strong> ${videoInfo.title}</p>
+        <p><strong>Upload Date:</strong> ${videoInfo.uploadDate}</p>
+        <p><strong>Views:</strong> ${videoInfo.views}</p>
+        <p><strong>Duration:</strong> ${videoInfo.duration} minutes</p>
+        <p><strong>Likes:</strong> ${videoInfo.likes || 0}</p>
+        <p><strong>Dislikes:</strong> ${videoInfo.dislikes || 0}</p>
+        <p><strong>Video Type:</strong> ${videoInfo.separateVideoCounter}</p>
+      `;
+    }
   </script>
+
 </body>
 </html>

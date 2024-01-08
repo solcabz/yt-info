@@ -16,26 +16,32 @@ app.get('/videoInfo', async (req, res) => {
 
   try {
     const info = await ytdl.getInfo(videoUrl);
-    console.log('Video Info:', info); // Log the entire 'info' object to the console
 
     const title = info.videoDetails.title;
-    const uploadDate = info.videoDetails.uploadDate;
+
+    // Format uploadDate to MM:DD:YY
+    const uploadDate = new Date(info.videoDetails.uploadDate);
+    const formattedUploadDate = `${uploadDate.getMonth() + 1}/${uploadDate.getDate()}/${uploadDate.getFullYear()}`;
+
     const views = info.videoDetails.viewCount;
-    const duration = parseInt(info.videoDetails.lengthSeconds) / 60;
-    
-    // Fetching likes and dislikes with default values of 0
-    const likes = info.videoDetails && info.videoDetails.likes ;
+
+    const durationSeconds = parseInt(info.videoDetails.lengthSeconds);
+    const minutes = Math.floor(durationSeconds / 60);
+    const seconds = durationSeconds % 60;
+    const duration = `${minutes}:${seconds}`;
+
+    const likes = info.videoDetails && info.videoDetails.likes;
     const dislikes = info.videoDetails && info.videoDetails.dislikes ? parseInt(info.videoDetails.dislikes) : 0;
-    
+
     const separateVideoCounter = info.videoDetails.isLiveContent ? 'Live Stream' : 'Single Video';
 
     const videoInfo = {
       title,
-      uploadDate,
+      uploadDate: formattedUploadDate,
       views,
-      duration: duration.toFixed(2),
+      duration,
       likes,
-      dislikes, // Adding dislikes to the videoInfo object
+      dislikes,
       separateVideoCounter,
     };
 
@@ -45,7 +51,8 @@ app.get('/videoInfo', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
