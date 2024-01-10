@@ -10,7 +10,7 @@
 
   <h1>YouTube Video Information</h1>
 
-  <form id="videoInfoForm">
+  <form id="videoInfoForm" >
     <div>
       <label for="videoUrl">YouTube Video URL:</label>
       <input type="text" id="videoUrl" name="videoUrl" required>
@@ -36,8 +36,6 @@
         <p><strong>Views:</strong> ${videoInfo.views}</p>
         <p><strong>Duration:</strong> ${videoInfo.duration} minutes</p>
         <p><strong>Likes:</strong> ${videoInfo.likes || 0}</p>
-        <p><strong>Dislikes:</strong> ${videoInfo.dislikes || 0}</p>
-        <p><strong>Video Type:</strong> ${videoInfo.separateVideoCounter}</p>
       `;
     }
   </script>
