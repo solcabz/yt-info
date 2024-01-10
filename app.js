@@ -34,18 +34,13 @@ app.get('/videoInfo', async (req, res) => {
     const duration = `${minutes}:${seconds}`;
 
     const likes = info.videoDetails && info.videoDetails.likes ? parseInt(info.videoDetails.likes) : 0;
-    const dislikes = info.videoDetails && info.videoDetails.dislikes ? parseInt(info.videoDetails.dislikes) : 0;
-
-    const separateVideoCounter = info.videoDetails.isLiveContent ? 'Live Stream' : 'Single Video';
     
     const videoInfo = {
       title,
       uploadDate: formattedUploadDate,
       views,
       duration,
-      likes,
-      dislikes,
-      separateVideoCounter,
+      likes
     };
 
     res.json(videoInfo);
