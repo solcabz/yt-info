@@ -16,7 +16,7 @@ app.get('/videoInfo', async (req, res) => {
     return res.status(400).json({ error: 'Please provide a video URL.' });
   }
 
-  try {
+  try { 
     const info = await ytdl.getInfo(videoUrl);
     console.log('Video Info:', info); // Log the entire 'info' object to the console
 
