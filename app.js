@@ -28,6 +28,7 @@ app.get('/videoInfo', async (req, res) => {
 
     const views = info.videoDetails.viewCount;
 
+    //Format time to seconds to minute
     const durationSeconds = parseInt(info.videoDetails.lengthSeconds);
     const minutes = Math.floor(durationSeconds / 60);
     const seconds = durationSeconds % 60;
@@ -35,6 +36,7 @@ app.get('/videoInfo', async (req, res) => {
 
     const likes = info.videoDetails && info.videoDetails.likes ? parseInt(info.videoDetails.likes) : 0;
     
+    //Extracting data to the api
     const videoInfo = {
       title,
       uploadDate: formattedUploadDate,
@@ -49,7 +51,7 @@ app.get('/videoInfo', async (req, res) => {
   }
 });
 
-
+//port server
 const PORT = process.env.PORT || 2000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
