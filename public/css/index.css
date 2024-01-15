@@ -17,9 +17,6 @@ body{
 h1{
     text-align: center;
 }
-ul{
-    list-style:none;
-}
 #videoInfoForm{
     text-align: center;
     display: flex;
@@ -40,6 +37,9 @@ input{
     border: none;
 } */
 
+.grid-wrap{
+    padding: 20px;
+}
 #videoInfoContainer{
     padding: 10px 25px;
 }

@@ -7,10 +7,12 @@
   <title><%= channelName %> Video Info</title>
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/button.css">
+  <link rel="stylesheet" href="/css/grid.css">
 </head>
 <body>
+  <div class="grid-wrap">
   <h1><%= channelName %> Video Info</h1>
-  <ul>
+  <ul class="card-container">
     <% videoInfoList.forEach(videoInfo => { %>
       <li class="">
         <strong>Title:</strong> <%= videoInfo.title %><br>
@@ -18,10 +20,10 @@
         <strong>Views:</strong> <%= videoInfo.views %><br>
         <strong>Duration:</strong> <%= videoInfo.duration %><br>
         <strong>Likes:</strong> <%= videoInfo.likes %><br>
-        <hr>
       </li>
     <% }); %>
   </ul>
+</div>
   
 </body>
 </html>
