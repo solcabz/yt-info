@@ -2,11 +2,11 @@
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
+    gap: 50px;
 }
 
 li{
-    border: 1px solid #ffffff;
-    border-radius: 3px;
-    padding: 5px 10px;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 8px;
+    padding: 8px 10px;
 }
