@@ -1,10 +1,13 @@
 {
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^3.0.2",
-    "ytdl-core": "github:MatteZ02/node-ytdl-core#likes-fix",
     "chalk": "^4.1.2",
-    "puppeteer": "^20.7.2"
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "googleapis": "^130.0.0",
+    "nodemon": "^3.0.2",
+    "puppeteer": "^21.7.0",
+    "puppeteer-core": "^21.7.0",
+    "ytdl-core": "github:MatteZ02/node-ytdl-core#likes-fix"
   },
   "scripts": {
     "start": "node app.js",

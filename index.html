@@ -1,45 +1,30 @@
+<!-- 
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/button.css">
+
+         -->
+         <!-- views/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YouTube Video Information</title>
+  <title><%= channelName %> Video Info</title>
 </head>
-<link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/button.css">
 <body>
-
-  <h1>YouTube Video Information</h1>
-
-  <form id="videoInfoForm" >
-    <div>
-      <label for="videoUrl">YouTube Video URL:</label>
-      <input type="text" id="videoUrl" name="videoUrl" required>
-    </div>
-    <button type="button" onclick="getVideoInfo()">Get Video Info</button>
-  </form>
-
-  <div id="videoInfoContainer">
-    <!-- Video information will be displayed here --> 
-  </div>
-
-  <script>
-    async function getVideoInfo() {
-      const videoUrl = document.getElementById('videoUrl').value;
-      const response = await fetch(`/videoInfo?videoUrl=${encodeURIComponent(videoUrl)}`);
-      const videoInfo = await response.json();
-
-      const videoInfoContainer = document.getElementById('videoInfoContainer');
-      videoInfoContainer.innerHTML = `
-        <h2>Video Information</h2>
-        <p><strong>Title:</strong> ${videoInfo.title}</p>
-        <p><strong>Upload Date:</strong> ${videoInfo.uploadDate}</p>
-        <p><strong>Views:</strong> ${videoInfo.views}</p>
-        <p><strong>Duration:</strong> ${videoInfo.duration} minutes</p>
-        <p><strong>Likes:</strong> ${videoInfo.likes || 0}</p>
-      `;
-    }
-  </script>
-
+  <h1><%= channelName %> Video Info</h1>
+  <ul>
+    <% videoInfoList.forEach(videoInfo => { %>
+      <li>
+        <strong>Title:</strong> <%= videoInfo.title %><br>
+        <strong>Upload Date:</strong> <%= videoInfo.uploadDate %><br>
+        <strong>Views:</strong> <%= videoInfo.views %><br>
+        <strong>Duration:</strong> <%= videoInfo.duration %><br>
+        <strong>Likes:</strong> <%= videoInfo.likes %><br>
+        <hr>
+      </li>
+    <% }); %>
+  </ul>
 </body>
 </html>
+

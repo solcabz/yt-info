@@ -17,7 +17,9 @@ body{
 h1{
     text-align: center;
 }
-
+ul{
+    list-style:none;
+}
 #videoInfoForm{
     text-align: center;
     display: flex;

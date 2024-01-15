@@ -1,0 +1,27 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= channelName %> Video Info</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/button.css">
+</head>
+<body>
+  <h1><%= channelName %> Video Info</h1>
+  <ul>
+    <% videoInfoList.forEach(videoInfo => { %>
+      <li class="">
+        <strong>Title:</strong> <%= videoInfo.title %><br>
+        <strong>Upload Date:</strong> <%= videoInfo.uploadDate %><br>
+        <strong>Views:</strong> <%= videoInfo.views %><br>
+        <strong>Duration:</strong> <%= videoInfo.duration %><br>
+        <strong>Likes:</strong> <%= videoInfo.likes %><br>
+        <hr>
+      </li>
+    <% }); %>
+  </ul>
+  
+</body>
+</html>
