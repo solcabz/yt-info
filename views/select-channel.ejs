@@ -1,0 +1,9 @@
+<form action="/" method="get">
+    <label for="channelSelect">Choose a channel:</label>
+    <select name="channelSelect" id="channelSelect">
+      <% channelUrls.forEach(url => { %>
+        <option value="<%= url %>"><%= url %></option>
+      <% }) %>
+    </select>
+    <button type="submit">Submit</button>
+  </form>

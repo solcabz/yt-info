@@ -11,13 +11,11 @@ const GetVideoList = require('./components/getvideolist');
 const app = express();
 const server = http.createServer(app);
 
-const configFile = './youtubeChannels.json';
+const configFile = './youtubeChannelsList.json';
 
 app.use(express.static('public'))
-// Set the view engine to EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 
 app.get('/', async (req, res) => {
   try {
@@ -25,22 +23,23 @@ app.get('/', async (req, res) => {
     const config = loadConfig();
     const channelUrls = Array.isArray(config.channelUrls) ? config.channelUrls : [config.channelUrls];
 
-    for (const channelUrl of channelUrls) {
-      if (linkValidator(channelUrl)) {
-        console.log(chalk.green(`Valid channel URL entered: ${channelUrl}`));
-        const channelName = channelUrl.replace("https://www.youtube.com/", "");
-        const saveLocation = `F:/Downloads/Video/ytDownload/${channelName}`;
-        fs.mkdirSync(saveLocation, { recursive: true });
+    let selectedChannelUrl = req.query.channelUrl || channelUrls[0];
 
-        const videoListPath = path.join(saveLocation, 'video-list.txt');
-        const videoList = await GetVideoList(channelUrl, videoListPath);
-        const videoInfoList = await Promise.all(videoList.map(videoUrl => getVideoInfo(videoUrl)));
+    if (linkValidator(selectedChannelUrl)) {
+      console.log(chalk.green(`Selected channel URL: ${selectedChannelUrl}`));
+      const channelName = selectedChannelUrl.replace("https://www.youtube.com/", "");
+      const saveLocation = `F:/Downloads/Video/ytDownload/${channelName}`;
+      fs.mkdirSync(saveLocation, { recursive: true });
 
-        // Render the HTML page with video information
-        res.render('index', { channelName, videoInfoList });
-      } else {
-        console.log(chalk.red(`Invalid channel URL entered: ${channelUrl}`));
-      }
+      const videoListPath = path.join(saveLocation, 'video-list.txt');
+      const videoList = await GetVideoList(selectedChannelUrl, videoListPath);
+      const videoInfoList = await Promise.all(videoList.map(videoUrl => getVideoInfo(videoUrl)));
+
+      // Render the HTML page with video information
+      res.render('index', { channelName, videoInfoList, config });
+    } else {
+      console.log(chalk.red(`Invalid channel URL entered: ${selectedChannelUrl}`));
+      res.status(400).send('Bad Request');
     }
   } catch (error) {
     console.error('Error processing request:', error);
@@ -65,7 +64,6 @@ function linkValidator(value) {
   return regex.test(value);
 }
 
-// Set up the server to listen on a specific port (e.g., 3000)
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

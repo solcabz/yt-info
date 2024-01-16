@@ -10,20 +10,38 @@
   <link rel="stylesheet" href="/css/grid.css">
 </head>
 <body>
-  <div class="grid-wrap">
-  <h1><%= channelName %> Video Info</h1>
-  <ul class="card-container">
-    <% videoInfoList.forEach(videoInfo => { %>
-      <li class="">
-        <strong>Title:</strong> <%= videoInfo.title %><br>
-        <strong>Upload Date:</strong> <%= videoInfo.uploadDate %><br>
-        <strong>Views:</strong> <%= videoInfo.views %><br>
-        <strong>Duration:</strong> <%= videoInfo.duration %><br>
-        <strong>Likes:</strong> <%= videoInfo.likes %><br> 
-      </li>
-    <% }); %>
-  </ul>
-</div>
-  
+    <!-- Dropdown for selecting a channel URL -->
+    <h1><%= channelName %> Video Info</h1>
+    <label for="channelSelector">Select a Channel:</label>
+    <select id="channelSelector" onchange="changeChannel()">
+      <% config.channelUrls.forEach(channelUrl => { %>
+        <option value="<%= channelUrl %>"><%= channelUrl %></option>
+      <% }); %>
+    </select>
+
+    <div class="grid-wrap">
+      
+      <ul class="card-container">
+        <% videoInfoList.forEach(videoInfo => { %>
+          <li class="">
+            <strong>Title:</strong> <%= videoInfo.title %><br>
+            <strong>Upload Date:</strong> <%= videoInfo.uploadDate %><br>
+            <strong>Views:</strong> <%= videoInfo.views %><br>
+            <strong>Duration:</strong> <%= videoInfo.duration %><br>
+            <strong>Likes:</strong> <%= videoInfo.likes %><br> 
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+
+  <script>
+    // Function to handle dropdown change event
+    function changeChannel() {
+      var selectedChannelUrl = document.getElementById('channelSelector').value;
+      // Make an AJAX request or navigate to a new URL with the selectedChannelUrl
+      // For simplicity, you can reload the page with the selected URL
+      window.location.href = '/?channelUrl=' + encodeURIComponent(selectedChannelUrl);
+    }
+  </script>
 </body>
 </html>
