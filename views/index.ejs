@@ -13,12 +13,15 @@
     <!-- Dropdown for selecting a channel URL -->
     <h1><%= channelName %> Video Info</h1>
     <label for="channelSelector">Select a Channel:</label>
-    <select id="channelSelector" onchange="changeChannel()">
-      <% config.channelUrls.forEach(channelUrl => { %>
-        <option value="<%= channelUrl %>"><%= channelUrl %></option>
-      <% }); %>
-    </select>
-
+    <div class="select-dropdown">
+      <select id="channelSelector" onchange="changeChannel()">
+        <% config.channelUrls.forEach(channelUrl => { %>
+          <option value="<%= channelUrl %>"><%= channelUrl %></option>
+        <% }); %>
+      </select>
+  
+    </div>
+   
     <div class="grid-wrap">
       
       <ul class="card-container">

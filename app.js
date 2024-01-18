@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
     if (linkValidator(selectedChannelUrl)) {
       console.log(chalk.green(`Selected channel URL: ${selectedChannelUrl}`));
       const channelName = selectedChannelUrl.replace("https://www.youtube.com/", "");
-      const saveLocation = `F:/Downloads/Video/ytDownload/${channelName}`;
+      const saveLocation = `D:/Downloads/Video/ytDownload/${channelName}`;
       fs.mkdirSync(saveLocation, { recursive: true });
 
       const videoListPath = path.join(saveLocation, 'video-list.txt');
