@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= channelName %> Video Info</title>
+  <title>Video Info Scrapper</title>
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/button.css">
   <link rel="stylesheet" href="/css/grid.css">
@@ -19,11 +19,9 @@
           <option value="<%= channelUrl %>"><%= channelUrl %></option>
         <% }); %>
       </select>
-  
     </div>
    
     <div class="grid-wrap">
-      
       <ul class="card-container">
         <% videoInfoList.forEach(videoInfo => { %>
           <li class="">
@@ -31,7 +29,12 @@
             <strong>Upload Date:</strong> <%= videoInfo.uploadDate %><br>
             <strong>Views:</strong> <%= videoInfo.views %><br>
             <strong>Duration:</strong> <%= videoInfo.duration %><br>
-            <strong>Likes:</strong> <%= videoInfo.likes %><br> 
+            <strong>Likes:</strong> <%= videoInfo.likes %><br>
+            <strong>Description:</strong> <%= videoInfo.description %><br>
+
+            <!-- Add more details as needed -->
+            <!-- For example, you can add the video URL or any other relevant information -->
+
           </li>
         <% }); %>
       </ul>

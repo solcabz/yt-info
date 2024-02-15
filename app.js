@@ -28,15 +28,37 @@ app.get('/', async (req, res) => {
     if (linkValidator(selectedChannelUrl)) {
       console.log(chalk.green(`Selected channel URL: ${selectedChannelUrl}`));
       const channelName = selectedChannelUrl.replace("https://www.youtube.com/", "");
-      const saveLocation = `D:/Downloads/Video/ytDownload/${channelName}`;
+      const saveLocation = `F:/Downloads/Video/ytDownload/${channelName}`;
       fs.mkdirSync(saveLocation, { recursive: true });
 
       const videoListPath = path.join(saveLocation, 'video-list.txt');
       const videoList = await GetVideoList(selectedChannelUrl, videoListPath);
-      const videoInfoList = await Promise.all(videoList.map(videoUrl => getVideoInfo(videoUrl)));
 
-      // Render the HTML page with video information
-      res.render('index', { channelName, videoInfoList, config });
+      // Filter videos based on the presence of "Edited by - https://twitter.com/iconiqlast" in the description
+      const filteredVideoList = await Promise.all(videoList.map(async (videoUrl) => {
+        const videoInfo = await getVideoInfo(videoUrl);
+
+        // Debugging: Print description and filtering condition
+        console.log('Video Description:', videoInfo.description);
+        const regex = /iconiqlast/i;
+        console.log('Filtering Condition:', !regex.test(videoInfo.description));
+
+        // Include videos that do not have the specified text in the description
+        return {
+          videoUrl,
+          videoInfo,
+          shouldDisplay: !regex.test(videoInfo.description)
+        };
+      }));
+
+      // Create a list of videos to display (where shouldDisplay is false)
+      const displayVideoInfoList = filteredVideoList.filter(item => !item.shouldDisplay);
+
+      // Get detailed information for the videos to display
+      const detailedDisplayVideoInfoList = await Promise.all(displayVideoInfoList.map(item => getVideoInfo(item.videoUrl)));
+
+      // Render the HTML page with filtered and detailed video information for display
+      res.render('index', { channelName, videoInfoList: detailedDisplayVideoInfoList, config });
     } else {
       console.log(chalk.red(`Invalid channel URL entered: ${selectedChannelUrl}`));
       res.status(400).send('Bad Request');
@@ -46,6 +68,7 @@ app.get('/', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 function loadConfig() {
   try {

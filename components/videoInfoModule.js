@@ -15,13 +15,15 @@ async function getVideoInfo(videoUrl) {
     const seconds = durationSeconds % 60;
     const duration = `${minutes}:${seconds}`;
     const likes = info.videoDetails && info.videoDetails.likes ? parseInt(info.videoDetails.likes) : 0;
+    const description = info.videoDetails.description || '';
 
     const videoInfo = {
       title,
       uploadDate: formattedUploadDate,
       views,
       duration,
-      likes
+      likes,
+      description,
     };
 
     return videoInfo;
