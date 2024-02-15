@@ -39,9 +39,9 @@ app.get('/', async (req, res) => {
         const videoInfo = await getVideoInfo(videoUrl);
 
         // Debugging: Print description and filtering condition
-        console.log('Video Description:', videoInfo.description);
+        //console.log('Video Description:', videoInfo.description);
         const regex = /iconiqlast/i;
-        console.log('Filtering Condition:', !regex.test(videoInfo.description));
+       //console.log('Filtering Condition:', !regex.test(videoInfo.description));
 
         // Include videos that do not have the specified text in the description
         return {
